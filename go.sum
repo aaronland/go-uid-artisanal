@@ -12,7 +12,10 @@ github.com/aaronland/go-brooklynintegers-api v1.0.2/go.mod h1:JlR7i6vciy3W0aMnid
 github.com/aaronland/go-brooklynintegers-api v1.1.0 h1:eyoSZjn3Qiy79H+1rG/HtkEShNBZkPUWs4YKpFWkuD8=
 github.com/aaronland/go-brooklynintegers-api v1.1.0/go.mod h1:agceH8JW8PcdHGCyKEDmOntccB3m7xUKrUejHpxAs6U=
 github.com/aaronland/go-londonintegers-api v0.1.0/go.mod h1:E0VIcwks+So4FL1FYAQzrO5/OVOUsFPsqW85UrZArSE=
+github.com/aaronland/go-missionintegers-api v0.1.0 h1:huuTG5CaJBye+Eng+kSxbKwm2SBmeM1YMkO6C+eTVbo=
 github.com/aaronland/go-missionintegers-api v0.1.0/go.mod h1:LZEM5+MkPX5RehLxTEv+3Y3cqMSYEk86qBa+aVecnKw=
+github.com/aaronland/go-missionintegers-api v0.1.1 h1:zn6ohxxdUp3UXD8kv7ZXceS6CbGemtyDjvMT1VLezKI=
+github.com/aaronland/go-missionintegers-api v0.1.1/go.mod h1:CvByrizvklOxK6QD+Z4RNqACxHqqVjiB/GdWQfrB4Mc=
 github.com/aaronland/go-pool v0.0.0-20191128211702-88306299c758 h1:m/JUyvxsCbgOyhecvs9WXFvZy9dj8BKu4T96J53d/ao=
 github.com/aaronland/go-pool v0.0.0-20191128211702-88306299c758/go.mod h1:hL9EPOZJ6WVHaz7D0Jw1Dn1vaCOOSZNrYBTKMgDKYRk=
 github.com/aaronland/go-roster v0.0.1 h1:r1l4n1HfWvEtOXZvhfXX0Won9Xf6QJsigdUdzOtuy/M=

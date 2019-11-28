@@ -2,18 +2,36 @@ package artisanal
 
 import (
 	"context"
-	"testing"
+	_ "github.com/aaronland/go-brooklynintegers-api"
+	_ "github.com/aaronland/go-missionintegers-api"
 	"github.com/aaronland/go-uid"
-	_ "github.com/aaronland/go-brooklynintegers-api"	
+	"testing"
 )
 
 func TestArtisanalProvider(t *testing.T) {
 
 	ctx := context.Background()
-	
-	uri := "artisanal:///?pool=memory://&minimum=5&client=brooklynintegers://"
-	
-	pr, err := uid.NewProvider(ctx, uri)
+
+	opts := &ArtisanalProviderURIOptions{
+		Pool:    "memory://",
+		Minimum: 5,
+		Clients: []string{
+			"brooklynintegers://",
+			"missionintegers://",
+		},
+	}
+
+	uri, err := NewArtisanalProviderURI(opts)
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	str_uri := uri.String()
+
+	t.Log(str_uri)
+
+	pr, err := uid.NewProvider(ctx, str_uri)
 
 	if err != nil {
 		t.Fatal(err)
