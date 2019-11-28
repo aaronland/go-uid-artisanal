@@ -45,3 +45,4 @@ func main() {
 * https://github.com/aaronland/go-uid
 * https://github.com/aaronland/go-pool
 * https://github.com/aaronland/go-artisanal-integers
+* https://github.com/aaronland/go-artisanal-integers-proxy/service
