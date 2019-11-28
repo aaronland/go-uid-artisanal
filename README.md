@@ -40,3 +40,5 @@ func main() {
 ## See also
 
 * https://github.com/aaronland/go-uid
+* https://github.com/aaronland/go-pool
+* https://github.com/aaronland/go-artisanal-integers
