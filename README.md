@@ -29,6 +29,9 @@ func main() {
 	uri, _ := NewArtisanalProviderURI(opts)
 	str_uri := uri.String()
 
+	// str_uri ends up looking like this:
+	// artisanal:?client=brooklynintegers%3A%2F%2F&minimum=5&pool=memory%3A%2F%2F
+	
 	pr, _ := uid.NewProvider(ctx, str_uri)
 	id, _ := pr.UID()
 
