@@ -2,11 +2,12 @@ package artisanal
 
 import (
 	"context"
+	"errors"
 	"github.com/aaronland/go-artisanal-integers"
 	"github.com/aaronland/go-artisanal-integers-proxy/service"
-	brooklyn_api "github.com/aaronland/go-brooklynintegers-api"
 	"github.com/aaronland/go-uid"
-	boltdb_pool "github.com/whosonfirst/go-whosonfirst-pool-boltdb"
+	"github.com/aaronland/go-pool"
+	"log"
 	"strconv"
 	"net/url"
 )
@@ -42,45 +43,50 @@ func (pr *ArtisanalProvider) Open(ctx context.Context, uri string) error {
 	}
 
 	q := u.Query()
-
-	str_min := q.Get("minimum")
-	
-	// artisanal:///?client=brooklyn&client=mission
 	
 	clients := make([]artisanalinteger.Client, 0)
 
-	cl := brooklyn_api.NewAPIClient()
-	clients = append(clients, cl)
+	for _, cl_uri := range q["client"] {
 
-	// pool, err := pool.NewPool(pool_uri)
+		log.Println("WHAT", cl_uri)
+		cl, err := artisanalinteger.NewClient(ctx, cl_uri)
+
+		if err != nil {
+			return err
+		}
+		
+		clients = append(clients, cl)
+	}
 	
-	// please make me flags (see above)
-	db := "integers.db"
-	bucket := "integers"
+	if len(clients) == 0 {
+		return errors.New("No artisanal integer clients defined")
+	}
 	
-	pool, err := boltdb_pool.NewBoltDBLIFOIntPool(db, bucket)
+ 	pool_uri := q.Get("pool")
+	
+	pl, err := pool.NewPool(ctx, pool_uri)
 	
 	if err != nil {
 		return err
 	}
-	
-	opts, err := service.DefaultProxyServiceOptions()
 
-	if err != nil {
-		return err
-	}
-
-	opts.Pool = pool
-
+	str_min := q.Get("minimum")	
 	min, err := strconv.Atoi(str_min)
 
 	if err != nil {
 		return err
 	}
 	
-	opts.Minimum = min
+	svc_opts, err := service.DefaultProxyServiceOptions()
 
-	svc, err := service.NewProxyService(opts, clients...)
+	if err != nil {
+		return err
+	}
+
+	svc_opts.Pool = pl	
+	svc_opts.Minimum = min
+
+	svc, err := service.NewProxyService(svc_opts, clients...)
 
 	if err != nil {
 		return err
