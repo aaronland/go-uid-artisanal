@@ -4,22 +4,15 @@ import (
 	"context"
 	"fmt"
 	"github.com/aaronland/go-artisanal-integers"
-	_ "github.com/aaronland/go-artisanal-integers/service"
 	"github.com/aaronland/go-uid"
-	"strings"
+	"net/url"
 )
+
+const ARTISANAL_SCHEME string = "artisanal"
 
 func init() {
 	ctx := context.Background()
-
-	schemes := []string{
-		"brooklynintegers",
-	}
-
-	for _, scheme := range schemes {
-		scheme = strings.Replace(scheme, "://", "", 1)
-		uid.RegisterProvider(ctx, scheme, NewArtisanalProvider)
-	}
+	uid.RegisterProvider(ctx, ARTISANAL_SCHEME, NewArtisanalProvider)
 }
 
 type ArtisanalProvider struct {
@@ -34,7 +27,15 @@ type ArtisanalUID struct {
 
 func NewArtisanalProvider(ctx context.Context, uri string) (uid.Provider, error) {
 
-	client, err := artisanalinteger.NewClient(ctx, uri)
+	u, err := url.Parse(uri)
+
+	if err != nil {
+		return nil, fmt.Errorf("Failed to parse client, %w", err)
+	}
+
+	client_uri := fmt.Sprintf("%s://", u.Host)
+
+	client, err := artisanalinteger.NewClient(ctx, client_uri)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create artisanal integer client, %w", err)
