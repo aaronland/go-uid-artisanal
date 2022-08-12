@@ -3,9 +3,8 @@ module github.com/aaronland/go-uid-artisanal
 go 1.18
 
 require (
-	github.com/aaronland/go-artisanal-integers v0.1.1
-	github.com/aaronland/go-brooklynintegers-api v1.2.5
-	github.com/aaronland/go-missionintegers-api v0.1.1
+	github.com/aaronland/go-artisanal-integers v0.9.1
+	github.com/aaronland/go-brooklynintegers-api v1.2.6
 	github.com/aaronland/go-uid v0.2.0
 )
 

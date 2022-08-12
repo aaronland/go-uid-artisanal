@@ -1,14 +1,10 @@
-# github.com/aaronland/go-artisanal-integers v0.1.1
-## explicit; go 1.12
+# github.com/aaronland/go-artisanal-integers v0.9.1
+## explicit; go 1.16
 github.com/aaronland/go-artisanal-integers
-github.com/aaronland/go-artisanal-integers/service
-github.com/aaronland/go-artisanal-integers/utils
-# github.com/aaronland/go-brooklynintegers-api v1.2.5
+github.com/aaronland/go-artisanal-integers/client
+# github.com/aaronland/go-brooklynintegers-api v1.2.6
 ## explicit; go 1.16
 github.com/aaronland/go-brooklynintegers-api
-# github.com/aaronland/go-missionintegers-api v0.1.1
-## explicit; go 1.12
-github.com/aaronland/go-missionintegers-api
 # github.com/aaronland/go-roster v1.0.0
 ## explicit; go 1.16
 github.com/aaronland/go-roster
