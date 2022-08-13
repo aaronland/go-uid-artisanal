@@ -3,21 +3,26 @@ package artisanal
 import (
 	"context"
 	"fmt"
-	"github.com/aaronland/go-artisanal-integers"
+	"github.com/aaronland/go-artisanal-integers/client"
 	"github.com/aaronland/go-uid"
-	"net/url"
+	_ "net/url"
+	"strings"
 )
 
 const ARTISANAL_SCHEME string = "artisanal"
 
 func init() {
 	ctx := context.Background()
-	uid.RegisterProvider(ctx, ARTISANAL_SCHEME, NewArtisanalProvider)
+
+	for _, s := range client.Schemes() {
+		s = strings.Replace(s, "://", "", 1)
+		uid.RegisterProvider(ctx, s, NewArtisanalProvider)
+	}
 }
 
 type ArtisanalProvider struct {
 	uid.Provider
-	client artisanalinteger.Client
+	client client.Client
 }
 
 type ArtisanalUID struct {
@@ -27,22 +32,16 @@ type ArtisanalUID struct {
 
 func NewArtisanalProvider(ctx context.Context, uri string) (uid.Provider, error) {
 
-	u, err := url.Parse(uri)
+	cl_uri := fmt.Sprintf(uri)
 
-	if err != nil {
-		return nil, fmt.Errorf("Failed to parse client, %w", err)
-	}
-
-	client_uri := fmt.Sprintf("%s://", u.Host)
-
-	client, err := artisanalinteger.NewClient(ctx, client_uri)
+	cl, err := client.NewClient(ctx, cl_uri)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create artisanal integer client, %w", err)
 	}
 
 	pr := &ArtisanalProvider{
-		client: client,
+		client: cl,
 	}
 
 	return pr, nil
@@ -58,13 +57,13 @@ func NewArtisanalUID(ctx context.Context, args ...interface{}) (uid.UID, error) 
 		return nil, fmt.Errorf("Invalid arguments")
 	}
 
-	cl, ok := args[0].(artisanalinteger.Client)
+	cl, ok := args[0].(client.Client)
 
 	if !ok {
 		return nil, fmt.Errorf("Invalid client")
 	}
 
-	i, err := cl.NextInt()
+	i, err := cl.NextInt(ctx)
 
 	if err != nil {
 		return nil, fmt.Errorf("Failed to create new integerm %w", err)
