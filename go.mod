@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aaronland/go-artisanal-integers v0.9.1
-	github.com/aaronland/go-uid v0.2.0
+	github.com/aaronland/go-uid v0.4.0
 )
 
 require (
