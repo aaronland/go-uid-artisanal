@@ -1,10 +1,10 @@
 module github.com/aaronland/go-uid-artisanal
 
-go 1.18
+go 1.22
 
 require (
 	github.com/aaronland/go-artisanal-integers v0.9.1
-	github.com/aaronland/go-uid v0.4.0
+	github.com/aaronland/go-uid v0.5.0
 )
 
 require (
